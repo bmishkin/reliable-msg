@@ -3,8 +3,12 @@
 # add lib dir to path
 $:.unshift File.join(File.dirname(__FILE__),'..','lib')
 
+# require uuid gem
+require 'rubygems'
+gem 'uuid'
+
+# try loading lib, err try gem
 begin
-  require 'rubygems'
   require 'reliable-msg'
 rescue LoadError
   puts "error loading... trying gem instead"
