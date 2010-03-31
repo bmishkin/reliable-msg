@@ -12,7 +12,6 @@ require "drb"
 require "reliable-msg/client"
 require "reliable-msg/selector"
 
-
 module ReliableMsg
 
   # == Queue client API

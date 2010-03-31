@@ -16,7 +16,6 @@ require "yaml"
 require "uuid"
 require "reliable-msg/client"
 require "reliable-msg/message-store"
-require 'Logger'
 
 module ReliableMsg
 

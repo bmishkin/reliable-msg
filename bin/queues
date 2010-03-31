@@ -7,6 +7,9 @@ $:.unshift File.join(File.dirname(__FILE__),'..','lib')
 require 'rubygems'
 gem 'uuid'
 
+# req for CLI
+require "logger.rb"
+
 # try loading lib, err try gem
 begin
   require 'reliable-msg'
