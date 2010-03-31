@@ -1,7 +1,13 @@
+#!/usr/bin/ruby
+
+# add lib dir to path
+$:.unshift File.join(File.dirname(__FILE__),'..','lib')
+
 begin
+  require 'rubygems'
   require 'reliable-msg'
 rescue LoadError
-  require 'rubygems'
+  puts "error loading... trying gem instead"
   gem 'reliable-msg'
 end
 ReliableMsg::CLI.new.run

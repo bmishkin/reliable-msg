@@ -21,13 +21,15 @@ module ReliableMsg
 
   class Config #:nodoc:
 
-    CONFIG_FILE = "queues.cfg"
+    CONFIG_FILE = "config/queues.cfg"
 
     DEFAULT_STORE = MessageStore::Disk::DEFAULT_CONFIG
 
+    # BJM: added default host 'localhost'
     DEFAULT_DRB = {
       "port"=>Client::DRB_PORT,
-      "acl"=>"allow localhost"
+      "acl"=>"allow localhost",
+      "host"=>"localhost"
     }
 
     INFO_LOADED_CONFIG  = "Loaded queues configuration from: %s" #:nodoc:
@@ -200,7 +202,11 @@ module ReliableMsg
 
           # Get the DRb URI from the configuration, or use the default. Create a DRb server.
           drb = Config::DEFAULT_DRB.merge(@config.drb || {})
-          drb_uri = "druby://localhost:#{drb['port']}"
+
+          # BJM: let config file specify a host other than localhost, so works over interweb
+          #drb_uri = "druby://localhost:#{drb['port']}"
+          drb_uri = "druby://#{drb['host']}:#{drb['port']}"
+
           @drb_server = DRb::DRbServer.new drb_uri, self, :tcp_acl=>ACL.new(drb["acl"].split(" "), ACL::ALLOW_DENY)
           @logger.info format(INFO_ACCEPTING_DRB, drb_uri)
 
